@@ -1,17 +1,29 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Seleccion Noticias
     </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-list *ngFor="let lista of listArticulos.getSeleccionados()">
+    <ion-card>
+      <img alt="" src= {{lista.urlToImage}}/>
+      <ion-card-header>
+        <ion-card-title>{{lista.source.name}}</ion-card-title>
+        <ion-card-subtitle>{{lista.title}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>{{lista.description}}</ion-card-content>
+      <ion-button fill="clear" href = "{{lista.url}}" target="_blank">Leer</ion-button>
+      <ion-button fill="clear" (click)="alertaConfirmacion(lista)">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-card>
+  </ion-list>
+
 </ion-content>

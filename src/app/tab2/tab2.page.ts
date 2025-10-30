@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { GestionNoticias } from '../servicio/gestion-noticias';
+import { AlertController } from  '@ionic/angular'
+import { Articulos } from '../interfaces/mis-interfaces';
 
 @Component({
   selector: 'app-tab2',
@@ -8,6 +11,28 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
-
+  constructor(public listArticulos: GestionNoticias, private alertCtrl: AlertController) {}
+  
+  async alertaConfirmacion(articulo: Articulos) {
+    let alert = await this.alertCtrl.create({
+      header: 'Borrar',
+      message: 'Quieres eliminar esta noticia?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Borrar',
+          handler: (data) => {
+            this.listArticulos.borrarArticulo(articulo);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 }
