@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GestionNoticias } from '../servicio/gestion-noticias';
 import { AlertController } from  '@ionic/angular'
 import { Articulos } from '../interfaces/mis-interfaces';
+import { GestionStorageService } from '../servicio/storage';
 
 @Component({
   selector: 'app-tab2',
@@ -11,7 +12,9 @@ import { Articulos } from '../interfaces/mis-interfaces';
 })
 export class Tab2Page {
 
-  constructor(public listArticulos: GestionNoticias, private alertCtrl: AlertController) {}
+  constructor(public listArticulos: GestionNoticias, private alertCtrl: AlertController, private almacen: GestionStorageService) {
+      this.almacen.getObject("articulos");
+  }
   
   async alertaConfirmacion(articulo: Articulos) {
     let alert = await this.alertCtrl.create({
