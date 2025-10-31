@@ -22,4 +22,7 @@ export interface Fuente {
   name: string;
 }
 
-
+export interface Categorias {
+  label: string;
+  value: string;
+}

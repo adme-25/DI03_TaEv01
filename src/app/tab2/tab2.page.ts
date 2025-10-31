@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { GestionNoticias } from '../servicio/gestion-noticias';
+import { GestionNoticias } from '../servicios/gestion-noticias';
 import { AlertController } from  '@ionic/angular'
 import { Articulos } from '../interfaces/mis-interfaces';
-import { GestionStorageService } from '../servicio/storage';
+import { GestionStorageService } from '../servicios/storage';
 
 @Component({
   selector: 'app-tab2',

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { GestionArchivo } from '../servicio/gestion-archivo';
-import { GestionNoticias } from '../servicio/gestion-noticias';
-import { Articulos } from '../interfaces/mis-interfaces';
-import { GestionStorageService } from '../servicio/storage';
+import { GestionArchivo } from '../servicios/gestion-archivo';
+import { GestionNoticias } from '../servicios/gestion-noticias';
+import { Articulos, Categorias } from '../interfaces/mis-interfaces';
+import { GestionStorageService } from '../servicios/storage';
+import { ConsultaRest } from '../servicios/consulta-rest';
 
 @Component({
   selector: 'app-tab1',
@@ -12,14 +13,23 @@ import { GestionStorageService } from '../servicio/storage';
 })
 export class Tab1Page {
 
-  seleccionados: Articulos[] = [];
+  public seleccionados: Articulos[] = [];
 
-  constructor(public listaArticulos: GestionArchivo, public gestionArticulos: GestionNoticias, private almacen: GestionStorageService) {
-    
+  public categoria: Categorias[] = [
+    {label: 'GENERAL', value: 'general'},{label: 'BUSINESS', value: 'business'},{label: 'TECHNOLOGY', value: 'technology'},
+    {label: 'SCIENCE', value: 'science'}, {label: 'HEALTH', value: 'health'},{label: 'SPORTS', value: 'sports'}
+  ];
+
+  public seleccion: string = "general";
+
+  constructor(public listaRest: ConsultaRest, public listaArticulos: GestionArchivo, public gestionArticulos: GestionNoticias, private almacen: GestionStorageService) {
+
   }
 
   ngOnInit(){
-      this.listaArticulos.getArchivoNoticias();
+    
+      //this.listaArticulos.getArchivoNoticias();
+      this.listaRest.getListaNoticiasRest(this.seleccion);
 
       let datosAlmacenados: Promise<Articulos[]> =  this.almacen.getObject("articulos");
       datosAlmacenados.then(noticias => {
@@ -32,6 +42,14 @@ export class Tab1Page {
       this.seleccionados = data;
 
     });
+    
+  }
+
+  categoriaNoticias(event: any) {
+    this.seleccion = event.detail.value;
+    console.log("la seleccion es: " + this.seleccion);
+    this.listaRest.getListaNoticiasRest(this.seleccion);
+  
   }
 
   onIonChange(event: any, articulo: Articulos) {

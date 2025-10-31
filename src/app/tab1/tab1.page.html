@@ -3,16 +3,24 @@
     <ion-title>
       Noticias
     </ion-title>
+    <ion-segment [value]="seleccion" [scrollable]="true" [(ngModel)]="seleccion" (ionChange)="categoriaNoticias($event)">
+      <ion-segment-button *ngFor="let cat of categoria" [value]="cat.value">
+        <ion-label>{{cat.label}}</ion-label>
+      </ion-segment-button>
+
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list *ngFor="let articulo of listaArticulos.getArticulos()">
+  
+  <ion-list *ngFor="let articulo of listaRest.getArticulos()">
     <ion-item>
       <ion-checkbox labelPlacement="start" (ionChange) = "onIonChange($event, articulo)" [checked]="estaSeleccionado(articulo)">
-        <span>{{articulo.source.name}}</span>
-        <br>
-        <span>{{articulo.title}}</span>
+      <ion-label color="primary" class="ion-text-wrap">
+        <h3>{{ articulo.source.name}} </h3>
+        <p> {{ articulo.title}} </p>
+      </ion-label>
       </ion-checkbox>
     </ion-item>
   </ion-list>
