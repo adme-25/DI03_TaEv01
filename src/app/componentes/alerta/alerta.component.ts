@@ -8,7 +8,8 @@ import { AlertController, IonicModule } from '@ionic/angular';
   imports: [IonicModule],
 })
 export class AlertaComponent  implements OnInit {
-
+  
+  //Decorador para interactuar con el handler de la alerta
   @Input() onConfirm: () => void = () => {};
 
   constructor(private alerta: AlertController) { }

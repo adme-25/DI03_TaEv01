@@ -27,7 +27,6 @@ export class ConsultaRest {
   getListaNoticiasRest(categoria: string){
     //Realizamos la llamada api y la recogemos en un observable de tipo RespuestaNoticias
     let respuesta: Observable<Noticias> = this.leerServicioRest.get<Noticias>("https://newsapi.org/v2/top-headlines?country=us&category=" + categoria + "&apiKey=" + this.apiKey);
-    console.log("respuesta: " + respuesta);
 
     respuesta.subscribe( data => {
        this.listArticulos = []; // Limpiamos la lista antes de añadir los nuevos artículos

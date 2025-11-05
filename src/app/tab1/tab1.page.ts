@@ -26,9 +26,9 @@ export class Tab1Page {
   constructor(public listaRest: ConsultaRest, public listaArticulos: GestionArchivo, public gestionArticulos: GestionNoticias, private almacen: GestionStorageService) {
   }
 
-  //Se cargan al inicio: la lista de noticias del servicio rest
-  //los archivos almacenados en local
-  //y los que tienen que aparecer como seleccionados en el check-box
+  //Se cargan al inicio: la lista de noticias del servicio rest,
+  //  los archivos almacenados en local
+  //  y los marca como seleccionados para el check-box
   ngOnInit(){
     //Queda comentado el acceso anterior al archivo json de noticias
     //this.listaArticulos.getArchivoNoticias();
@@ -41,8 +41,8 @@ export class Tab1Page {
         }
       })
       this.gestionArticulos.getCambios().subscribe(data => {
-      this.seleccionados = data;
-    });
+        this.seleccionados = data;
+      });
   }
 
   //Recoge el evento del segment para asignar categoria y cargar sus articulos

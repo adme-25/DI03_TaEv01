@@ -7,21 +7,23 @@ import { GestionStorageService } from './storage'
   providedIn: 'root'
 })
 export class GestionNoticias {
+  //Array donde se guardarán los articulos selecciondos
   public articulosSeleccionados: Articulos[] = [];
-  public cambios$= new Subject<Articulos[]>();
-  
 
+  //bservable de tipo subject para mantener actualizados los check-box
+  public cambios$= new Subject<Articulos[]>();
+
+  //Carga los datos almacenados en local y los seleccionados a marcar en check-box
   constructor(private almacenaje: GestionStorageService ){
     let datosAlmacenados: Promise<Articulos[]> =  this.almacenaje.getObject("articulos");
-    
     datosAlmacenados.then(noticias => {
       if (noticias) {
         this.articulosSeleccionados = noticias;
       }
     })
-      
   }
   
+  //Busca coincidencias entre artículos por el título
   compararTitulos(articulo: Articulos){
     let coincidencia: boolean = false;
     for (let titulo of this.articulosSeleccionados){
@@ -48,10 +50,12 @@ export class GestionNoticias {
       this.almacenaje.setObject("articulos", this.articulosSeleccionados);
     }
   }
+
   getSeleccionados(){
     return this.articulosSeleccionados;
   }
   
+  //Devuelve el observable de los articulos que deben estar seleccionados en el check-box
   getCambios(): Observable<Articulos[]> {
     return this.cambios$.asObservable();
   }

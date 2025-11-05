@@ -12,7 +12,8 @@ export class GestionArchivo {
   constructor(private leerArchivo: HttpClient) {
     this.getArchivoNoticias();
   }
-
+  
+  //Crea un observable donde recoge los artículos del archivo json
   getArchivoNoticias(){
     let datosArchivo$: Observable<Noticias>;
     datosArchivo$ = this.leerArchivo.get<Noticias>("/assets/datos/articulos.json");
