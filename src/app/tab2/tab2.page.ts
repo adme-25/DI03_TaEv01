@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { GestionNoticias } from '../servicios/gestion-noticias';
-import { AlertController } from  '@ionic/angular'
 import { Articulos } from '../interfaces/mis-interfaces';
 import { GestionStorageService } from '../servicios/storage';
+import { AlertaComponent } from '../componentes/alerta/alerta.component';
 
 @Component({
   selector: 'app-tab2',
@@ -12,30 +12,17 @@ import { GestionStorageService } from '../servicios/storage';
 })
 export class Tab2Page {
 
-  constructor(public listArticulos: GestionNoticias, private alertCtrl: AlertController, private almacen: GestionStorageService) {
+  //Para acceder al componente <app-alerta>
+  @ViewChild(AlertaComponent) mostrarAlerta!: AlertaComponent;
+
+  //Se injectan los servicios y se inician los articulos guardados en local
+  constructor(public listArticulos: GestionNoticias, private almacen: GestionStorageService) {
       this.almacen.getObject("articulos");
   }
   
+  //Ejecuta la alerta y el borrado de articulo al confirmarla 
   async alertaConfirmacion(articulo: Articulos) {
-    let alert = await this.alertCtrl.create({
-      header: 'Borrar',
-      message: 'Quieres eliminar esta noticia?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Borrar',
-          handler: (data) => {
-            this.listArticulos.borrarArticulo(articulo);
-          }
-        }
-      ]
-    });
-    await alert.present();
+    this.mostrarAlerta.onConfirm = () => this.listArticulos.borrarArticulo(articulo);
+    this.mostrarAlerta.presentAlert();
   }
 }

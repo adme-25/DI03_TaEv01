@@ -21,7 +21,7 @@
       <ion-card-content>{{lista.description}}</ion-card-content>
       <ion-button fill="clear" href = "{{lista.url}}" target="_blank">Leer</ion-button>
       <ion-button fill="clear" (click)="alertaConfirmacion(lista)">
-        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        <app-alerta></app-alerta>
       </ion-button>
     </ion-card>
   </ion-list>

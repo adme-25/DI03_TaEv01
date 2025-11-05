@@ -7,13 +7,11 @@
       <ion-segment-button *ngFor="let cat of categoria" [value]="cat.value">
         <ion-label>{{cat.label}}</ion-label>
       </ion-segment-button>
-
     </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
   <ion-list *ngFor="let articulo of listaRest.getArticulos()">
     <ion-item>
       <ion-checkbox labelPlacement="start" (ionChange) = "onIonChange($event, articulo)" [checked]="estaSeleccionado(articulo)">
