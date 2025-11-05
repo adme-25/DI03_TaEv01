@@ -28,21 +28,21 @@ export class Tab1Page {
 
   //Se cargan al inicio: la lista de noticias del servicio rest,
   //  los archivos almacenados en local
-  //  y los marca como seleccionados para el check-box
+  //  y se subscribe a los artículos seleccionados para marcar el check-box de los almacenados
   ngOnInit(){
     //Queda comentado el acceso anterior al archivo json de noticias
     //this.listaArticulos.getArchivoNoticias();
-      this.listaRest.getListaNoticiasRest(this.seleccion);
+    this.listaRest.getListaNoticiasRest(this.seleccion);
 
-      let datosAlmacenados: Promise<Articulos[]> =  this.almacen.getObject("articulos");
-      datosAlmacenados.then(noticias => {
-        if (noticias) {
-          this.seleccionados = noticias;
-        }
-      })
-      this.gestionArticulos.getCambios().subscribe(data => {
-        this.seleccionados = data;
-      });
+    let datosAlmacenados: Promise<Articulos[]> =  this.almacen.getObject("articulos");
+    datosAlmacenados.then(noticias => {
+      if (noticias) {
+        this.seleccionados = noticias;
+      }
+    })
+    this.gestionArticulos.getCambios().subscribe(data => {
+      this.seleccionados = data;
+    });
   }
 
   //Recoge el evento del segment para asignar categoria y cargar sus articulos
