@@ -20,9 +20,7 @@ export class ConsultaRest {
   //Creamos el observable datos$ para gestionar los cambios que vienen desde la api.
   public datos$: Observable<{ categoria: string; totalResults: number }|undefined> = this.datosSubject.asObservable();
 
-  constructor(private leerServicioRest: HttpClient) {
-    
-  }
+  constructor(private leerServicioRest: HttpClient) {}
 
   getListaNoticiasRest(categoria: string){
     //Realizamos la llamada api y la recogemos en un observable de tipo RespuestaNoticias

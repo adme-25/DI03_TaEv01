@@ -48,6 +48,7 @@ export class GestionNoticias {
       this.articulosSeleccionados.splice(indice,1);
       this.cambios$.next(this.articulosSeleccionados);
       this.almacenaje.setObject("articulos", this.articulosSeleccionados);
+      console.log("Articulo borrado " + this.almacenaje);
     }
   }
 

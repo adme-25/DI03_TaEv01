@@ -21,7 +21,7 @@ export class Tab1Page {
     {label: 'SCIENCE', value: 'science'}, {label: 'HEALTH', value: 'health'},{label: 'SPORTS', value: 'sports'}
   ];
   //categoria por defecto al inicio
-  public seleccion: string = "general";
+  public seleccion: string = "business";
 
   constructor(public listaRest: ConsultaRest, public listaArticulos: GestionArchivo, public gestionArticulos: GestionNoticias, private almacen: GestionStorageService) {
   }
@@ -33,7 +33,7 @@ export class Tab1Page {
     //Queda comentado el acceso anterior al archivo json de noticias
     //this.listaArticulos.getArchivoNoticias();
     this.listaRest.getListaNoticiasRest(this.seleccion);
-
+    
     let datosAlmacenados: Promise<Articulos[]> =  this.almacen.getObject("articulos");
     datosAlmacenados.then(noticias => {
       if (noticias) {
@@ -50,6 +50,7 @@ export class Tab1Page {
     this.seleccion = event.detail.value;
     console.log("la seleccion es: " + this.seleccion);
     this.listaRest.getListaNoticiasRest(this.seleccion);
+    console.log(this.listaRest);
   }
 
   //evento del check-box para añadir o borrar articulos
